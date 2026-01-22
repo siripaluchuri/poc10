@@ -10,13 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Deploy on EC2
-      uses: appleboy/ssh-action@v1.0.0
+    - name: Deploy on EC2 (Ubuntu)
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_KEY }}
+        username: ubuntu
         key: ${{ secrets.EC2_KEY }}
+        port: 22
         script: |
           cd /var/www/html
-          git pull
+          git pull origin main
           sudo systemctl restart apache2
